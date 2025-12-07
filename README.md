@@ -13,8 +13,12 @@ A fundamentals-driven dependency engine that computes what each higher-level nod
 .\setup_environment.ps1
 # 2. Activate environment
 .\cdn_env\Scripts\Activate.ps1
-# 3. Run analysis
+# 3. Run analysis (Python visualization)
 python CDN_graph.py
+# 4. Generate Excel pyramid visualization (optional)
+python CDN_excel_pyramid.py cdn_network_5L.xlsx
+# OR for interactive file selection:
+python CDN_excel_pyramid.py
 ```
 
 ### Basic Usage
@@ -36,6 +40,7 @@ net.compute().summary().visualize()
    - `OK: Aligned` if equal
    - `OK: Conservative by X.XX` if visible < fundamental
 4. **Visualizes the network** with red borders on inflated nodes
+5. **Excel pyramid visualization** - Generate visual pyramid directly in Excel Overview sheet
 
 ## Excel Structure
 
@@ -48,9 +53,42 @@ Each level is a separate sheet:
 
 Edit the Excel file to modify the network - no code changes needed!
 
+## Excel Pyramid Visualization
+
+Generate a visual pyramid directly in Excel (requires activated virtual environment):
+
+```powershell
+# Activate environment first
+.\cdn_env\Scripts\Activate.ps1
+
+# With file argument (works with any Excel file name)
+python CDN_excel_pyramid.py cdn_network_5L.xlsx
+python CDN_excel_pyramid.py cdn_network_3L.xlsx
+python CDN_excel_pyramid.py cdn_network.xlsx
+
+# Interactive file selection (shows list of available .xlsx files)
+python CDN_excel_pyramid.py
+```
+
+**What it does:**
+
+- Loads network data and computes fundamental scores automatically
+- Creates/updates **Overview** sheet in the Excel file (replaces existing if present)
+- Generates pyramid structure with:
+  - Level 0 (base fundamentals) at bottom
+  - Higher levels build upward (pyramid structure)
+  - Each node shows: abbreviated name, Fundamental (F) score, Visible (V) score
+- Color-coded cells:
+  - **Green**: Conservative (V < F) - visible score is lower than fundamental
+  - **Yellow**: Aligned (V = F) - visible matches fundamental
+  - **Red**: Inflated (V > F) - visible exceeds what fundamentals support
+- Column widths and row heights automatically adjusted for readability
+- View directly in Excel - no Python needed to see the visualization after generation
+
 ## Project Files
 
 - `CDN_graph.py` - Main engine and executable
+- `CDN_excel_pyramid.py` - Excel pyramid visualization generator
 - `cdn_network.xlsx` - Configuration file (auto-created if missing)
 - `PROJECT_DOCUMENTATION.md` - **Detailed documentation with use cases**
 
