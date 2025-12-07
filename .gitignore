@@ -1,0 +1,33 @@
+# Ignore everything by default
+*
+
+# Allow Python files
+!*.py
+
+# Allow Excel files
+!*.xlsx
+!*.xls
+!*.xlsm
+
+# Ignore temporary Excel files
+~$*.xlsx
+~$*.xls
+~$*.xlsm
+
+# Allow this .gitignore file itself
+!.gitignore
+
+# Allow README and requirements files
+!README.md
+!requirements.txt
+
+# Allow PowerShell scripts
+!*.ps1
+
+# Ignore virtual environment
+cdn_env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
